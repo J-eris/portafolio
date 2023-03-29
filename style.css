@@ -5,42 +5,42 @@
     --main-blue: #6982be;
     --main-gray: #182b42;
   }
-  
+
   #desa {
-      color: #ff5c20;
-      font-style: var(--main-red);
-      font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-      transition: 0.8s ease-in-out;
+    color: #ff5c20;
+    font-style: var(--main-red);
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    transition: 0.8s ease-in-out;
   }
-  
+
   #desa:hover {
-      color: #ce0909;
-      background-color: var(--main-blue);
-      transform: translateY(10px);
-      box-shadow: 0px 0px 10px 5px var(--main-blue);
-      /* border: solid 1.5px black; */
-      text-shadow: 0px 3px 2px black;
-      /* border: 1px solid; */
-      border-radius: 8px;
-      /* padding: 5px; */
+    color: #ce0909;
+    background-color: var(--main-blue);
+    transform: translateY(10px);
+    box-shadow: 0px 0px 10px 5px var(--main-blue);
+    /* border: solid 1.5px black; */
+    text-shadow: 0px 3px 2px black;
+    /* border: 1px solid; */
+    border-radius: 8px;
+    /* padding: 5px; */
   }
-  
+
   /* Base reset */
   * {
     margin: 0;
     padding: 0;
   }
-  
+
   /* box-sizing and font sizing */
   *,
   *::before,
   *::after {
     box-sizing: inherit;
   }
-  
+
   html {
     box-sizing: border-box;
-  
+
     /* Set font size for easy rem calculations
      * default document font size = 16px, 1rem = 16px, 100% = 16px
      * (100% / 16px) * 10 = 62.5%, 1rem = 10px, 62.5% = 10px
@@ -48,80 +48,82 @@
     font-size: 62.5%;
     scroll-behavior: smooth;
   }
-  
-    
+
+
   /* I am using the em unit for breakpoints
    * The calculation is the following
    * screen size divided by browser base font size
    * As an example: a breakpoint at 980px
    * 980px / 16px = 61.25em
   */
-  
+
   /* 1200px / 16px = 75em */
   @media (max-width: 75em) {
     html {
       font-size: 60%;
     }
   }
-  
+
   /* 980px / 16px = 61.25em */
   @media (max-width: 61.25em) {
     html {
       font-size: 55%;
     }
   }
-  
+
   /* 460px / 16px = 28.75em */
   @media (max-width: 28.75em) {
     html {
       font-size: 50%;
     }
   }
-  
+
   /* Base styles */
-  
+
   body {
     font-family: 'Poppins', sans-serif;
-    font-size: 1.8rem; /* 18px */
+    font-size: 1.8rem;
+    /* 18px */
     font-weight: 400;
     line-height: 1.4;
     color: var(--main-white);
   }
-  
+
   h1,
   h2 {
     font-family: 'Raleway', sans-serif;
     font-weight: 700;
     text-align: center;
   }
-  
+
   h1 {
     font-size: 6rem;
   }
-  
+
   h2 {
     font-size: 4.2rem;
   }
-  
+
   ul {
     list-style: none;
   }
-  
+
   a {
     text-decoration: none;
     color: var(--main-white);
   }
-  
-  img {
-    display: block;
-    width: 100%;
+
+  .navBar img {
+    width: auto;
+    align-items: center;
+    height: 50px;
+    margin: 10px;
+    float: left;
   }
-  
+
   /* nav */
 
-  .nav {
-    display: flex;
-    justify-content: flex-start;
+  .navBar {
     position: fixed;
     top: 0;
     left: 0;
@@ -131,34 +133,70 @@
     z-index: 10;
 		box-sizing: border-box;
     padding-left: 20px;
+    overflow: hidden;
   }
-  
-  /* .nav {
-    display: flex;
-    margin-right: 2rem;
-  } */
-  
-  @media (max-width: 600px) {
-    .nav {
-      padding: 0px 0px 0px 0px;
-      flex-direction: column;	
-      
-    }      	
-	}
 
-  .nav a {
+  /*Floats each item to the left with padding of 14 & 16 px.
+  Removes the underline with text decoration = none.*/
+  .navBar a {
+    float: left;
+    color: white;
+    text-decoration: none;
     display: block;
     font-size: 2.2rem;
     padding: 2rem;
   }
-  
-  .nav a:hover {
+
+  /*Background color change during hover state*/
+  .navBar a:hover {
     background: var(--main-blue);
     border-radius: 5px;
   }
-  
+
+  /*Hides the menu Icon which will show when the nav needs to be responsive*/
+  .navBar .icon {
+    display: none;
+  }
+
+  /*Set your custom screen width here replacing 700*/
+  @media (max-width: 650px) {
+    .navBar {
+      padding: 0px 0px 0px 0px;
+      display: grid;  
+    }
+
+    /*Ignores the first link (which is Home) in the div and applies 'display = none' to everything else.   Basically hiding everything but Home*/
+    .navBar a:not(:first-child) {
+      display: none;
+    }
+
+    /*Brings the menu icon into view and floats it to the right*/
+    .navBar a.icon {
+      display: block;
+      float: right;
+    }
+
+    /*The navBar class will be changed to 'navBar responsive' using JS. This chunk of CSS makes the menu icon stay where it is by making the position absolute within it's parent 'right top corner'. Without this, the icon will get kicked around when the items are collapsed and expanded*/
+    .navBar.responsive {
+      position: fixed;
+    }
+
+    .navBar.responsive a.icon {
+      position: absolute;
+      right: 0;
+      top: 0;
+    }
+
+    /*Removes the originally set float and brings them to view*/
+    .navBar.responsive a {
+      float: none;
+      display: block;
+      text-align: left;
+    }
+  }
+
   /* Welcome section */
-  
+
   .welcome-section {
     display: flex;
     flex-direction: column;
@@ -169,34 +207,34 @@
     background-color: rgb(81, 67, 67);
     background-image: linear-gradient(62deg, #33383d 0%, #3f3b43 100%);
   }
-  
-  .welcome-section > p {
+
+  .welcome-section>p {
     font-size: 3rem;
     font-weight: 200;
     font-style: italic;
     color: var(--main-red);
   }
-  
+
   /* Projects section */
-  
+
   .projects-section {
     text-align: center;
     padding: 10rem 2rem;
     background: var(--main-blue);
   }
-  
+
   .projects-section-header {
     max-width: 640px;
     margin: 0 auto 6rem auto;
     border-bottom: 0.2rem solid var(--main-white);
   }
-  
+
   @media (max-width: 28.75em) {
     .projects-section-header {
       font-size: 4rem;
     }
   }
-  
+
   /* "Automagic" image grid using no media queries */
   .projects-grid {
     display: grid;
@@ -205,37 +243,39 @@
     width: 100%;
     max-width: 1280px;
     margin: 0 auto;
-    margin-bottom: 6rem;    
+    margin-bottom: 6rem;
   }
-  
-  
+
+
   @media (max-width: 30.625em) {
     .projects-section {
       padding: 6rem 1rem;
     }
-  
+
     .projects-grid {
       grid-template-columns: 1fr;
     }
   }
-  
+
   .project {
     background: var(--main-gray);
-    box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+    box-shadow: 1px 1px 15px 10px rgba(0, 0, 0, 0.5);
     border-radius: 10px;
+    width: auto;
+    height: auto;
   }
-  
+
   .code {
     color: var(--main-gray);
     transition: color 0.3s ease-out;
   }
-  
+
   .project:hover .code {
     color: #fd4400;
   }
-  
+
   .project-image {
-    height: calc(100% - 6.8rem);
+    height: calc(100% - 9rem);
     width: 100%;
     object-fit: cover;
     border-radius: 10px;
@@ -245,40 +285,41 @@
   .project-image:hover {
     transform: translateY(5px);
   }
-  
+
   .project-title {
     font-size: 2rem;
     padding: 2rem 0.5rem;
+    width: auto;
   }
-  
+
   .btn {
     display: inline-block;
     padding: 1rem 2rem;
     border-radius: 5px;
   }
-  
+
   .btn-show-all {
     font-size: 2rem;
     background: var(--main-gray);
     transition: background 0.3s ease-out;
   }
-  
+
   .btn-show-all:hover {
     background: var(--main-red);
   }
-  
-  .btn-show-all:hover > i {
+
+  .btn-show-all:hover>i {
     transform: translateX(3px);
   }
-  
-  .btn-show-all > i {
+
+  .btn-show-all>i {
     margin-left: 10px;
     transform: translateX(0);
     transition: transform 0.3s ease-out;
   }
-  
+
   /* Contact section */
-  
+
   .contact-section {
     display: flex;
     flex-direction: column;
@@ -290,21 +331,21 @@
     padding: 0 2rem;
     background: var(--main-gray);
   }
-  
-  .contact-section-header > h2 {
+
+  .contact-section-header>h2 {
     font-size: 6rem;
   }
-  
+
   @media (max-width: 28.75em) {
-    .contact-section-header > h2 {
+    .contact-section-header>h2 {
       font-size: 4rem;
     }
   }
-  
-  .contact-section-header > p {
+
+  .contact-section-header>p {
     font-style: italic;
   }
-  
+
   .contact-links {
     display: flex;
     justify-content: center;
@@ -313,14 +354,14 @@
     margin-top: 4rem;
     flex-wrap: wrap;
   }
-  
+
   .contact-details {
     font-size: 2.4rem;
     text-shadow: 1px 5px 1px #090909;
     transition: transform 0.3s ease-out;
     color: #fd4400;
   }
-  
+
   .contact-details:hover {
     transform: translateY(10px);
     color: aqua;
@@ -330,9 +371,9 @@
     text-align: start;
     padding-left: 27%;
   }
-  
+
   /* Footer */
-  
+
   footer {
     font-weight: 300;
     display: flex;
@@ -341,15 +382,15 @@
     background: var(--main-gray);
     border-top: 4px solid var(--main-red);
   }
-  
-  footer > p {
+
+  footer>p {
     margin: 2rem;
   }
-  
+
   footer i {
     vertical-align: middle;
   }
-  
+
   @media (max-width: 28.75em) {
     footer {
       flex-direction: column;
